@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7ckqmu43r6la"]
+
+[ext_resource type="Texture2D" uid="uid://cdco58750sr3t" path="res://Assets/Objects/house2 avail.png" id="1_qqpj3"]
+[ext_resource type="Script" path="res://basic_house.gd" id="1_sgbm7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_14k22"]
+size = Vector2(48, 32)
+
+[node name="basic_house" type="StaticBody2D"]
+z_index = 1
+script = ExtResource("1_sgbm7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_qqpj3")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(128, 0, 128, 64, -8, 64, -8, 32, -56, 32, -56, 64, -128, 64, -128, 0)
+
+[node name="door" type="Area2D" parent="."]
+
+[node name="door_detection" type="CollisionShape2D" parent="door"]
+position = Vector2(-32, 48)
+shape = SubResource("RectangleShape2D_14k22")
+
+[connection signal="body_entered" from="door" to="." method="_on_door_body_entered"]

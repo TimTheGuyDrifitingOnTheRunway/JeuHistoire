@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnmuhxfriwdt2"]
+
+[ext_resource type="Script" path="res://multiplayer.gd" id="1_4a7ny"]
+[ext_resource type="PackedScene" uid="uid://le32ahak202w" path="res://world.tscn" id="2_nnswa"]
+[ext_resource type="PackedScene" uid="uid://c5nng2rkd0kcb" path="res://player.tscn" id="2_rhbf5"]
+
+[node name="multiplayer" type="Node"]
+script = ExtResource("1_4a7ny")
+player_scene = ExtResource("2_rhbf5")
+world_scene = ExtResource("2_nnswa")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 14.3875
+anchor_top = 2.65
+anchor_right = 14.3875
+anchor_bottom = 2.75
+offset_left = -120.5
+offset_right = 120.5
+offset_bottom = 66.0
+grow_horizontal = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Connexion : "
+
+[node name="host" type="Button" parent="UI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "HOST"
+
+[node name="join" type="Button" parent="UI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "JOIN"
+
+[node name="adress" type="LineEdit" parent="UI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+placeholder_text = "Adress"
+
+[node name="username" type="LineEdit" parent="UI/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Pseudo"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://player.tscn")
+spawn_path = NodePath("..")
+
+[node name="world" parent="." instance=ExtResource("2_nnswa")]
+visible = false
+
+[connection signal="pressed" from="UI/VBoxContainer/HBoxContainer/host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="UI/VBoxContainer/HBoxContainer/join" to="." method="_on_join_pressed"]

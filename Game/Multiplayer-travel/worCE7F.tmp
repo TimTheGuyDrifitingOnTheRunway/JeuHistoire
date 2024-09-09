@@ -1,0 +1,156 @@
+[gd_scene load_steps=13 format=3 uid="uid://le32ahak202w"]
+
+[ext_resource type="Script" path="res://world.gd" id="1_rxjl0"]
+[ext_resource type="Texture2D" uid="uid://ckcnga36sg0sm" path="res://Assets/map test.png" id="1_xhjk5"]
+[ext_resource type="Texture2D" uid="uid://cwvfvejlxmeik" path="res://Assets/map tile grass.png" id="3_eyntk"]
+[ext_resource type="Texture2D" uid="uid://b8vxugpn5ncju" path="res://Assets/Tiles/wood tile.png" id="4_6mrf4"]
+[ext_resource type="Script" path="res://world_tileMap.gd" id="4_yulj3"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_cdvng"]
+distance = -256.0
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_mvwnt"]
+tile_data = PackedInt32Array(0, 196609, 22, 65536, 65537, 23, 131072, 262145, 23, 1, 393217, 23, 65537, 196609, 23, 131073, 327681, 23, 2, 131073, 23, 65538, 196609, 23, 131074, 131073, 23)
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_5jbrr"]
+tile_data = PackedInt32Array(0, 3342337, 34, 65536, 3145729, 35, 131072, 3145729, 31, 1, 3473409, 33, 65537, 3407873, 34, 131073, 3276801, 31, 2, 3407873, 33, 65538, 3276801, 30, 131074, 3145729, 32)
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_i4mxe"]
+tile_data = PackedInt32Array(0, 65537, 34, 1, 262145, 35, 2, 327681, 35, 3, 262145, 35, 4, 262145, 34)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wuvh2"]
+texture = ExtResource("3_eyntk")
+margins = Vector2i(2, 2)
+separation = Vector2i(5, 6)
+texture_region_size = Vector2i(27, 27)
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/terrains_peering_bit/right_side = 0
+0:0/0/terrains_peering_bit/bottom_side = 0
+0:0/0/terrains_peering_bit/left_side = 0
+0:0/0/terrains_peering_bit/top_side = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/terrains_peering_bit/right_side = 0
+1:0/0/terrains_peering_bit/bottom_side = 0
+1:0/0/terrains_peering_bit/left_side = 0
+1:0/0/terrains_peering_bit/top_side = 0
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrain = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/terrains_peering_bit/right_side = 0
+0:1/0/terrains_peering_bit/bottom_side = 0
+0:1/0/terrains_peering_bit/left_side = 0
+0:1/0/terrains_peering_bit/top_side = 0
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0/terrains_peering_bit/right_side = 0
+1:1/0/terrains_peering_bit/bottom_side = 0
+1:1/0/terrains_peering_bit/left_side = 0
+1:1/0/terrains_peering_bit/top_side = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b00rr"]
+texture = ExtResource("4_6mrf4")
+margins = Vector2i(2, 2)
+separation = Vector2i(5, 6)
+texture_region_size = Vector2i(27, 27)
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 1
+0:0/0/probability = 0.5
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14.125, -14, 13.625, -13.5, 13.625, 13.5, -13.625, 14)
+0:0/0/terrains_peering_bit/right_side = 0
+0:0/0/terrains_peering_bit/bottom_side = 0
+0:0/0/terrains_peering_bit/left_side = 0
+0:0/0/terrains_peering_bit/top_side = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 1
+1:0/0/probability = 0.5
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14.125, -14, 13.625, -13.5, 13.625, 13.5, -13.625, 14)
+1:0/0/terrains_peering_bit/right_side = 0
+1:0/0/terrains_peering_bit/bottom_side = 0
+1:0/0/terrains_peering_bit/left_side = 0
+1:0/0/terrains_peering_bit/top_side = 0
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrain = 1
+0:1/0/probability = 0.5
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14.125, -14, 13.625, -13.5, 13.625, 13.5, -13.625, 14)
+0:1/0/terrains_peering_bit/right_side = 0
+0:1/0/terrains_peering_bit/bottom_side = 0
+0:1/0/terrains_peering_bit/left_side = 0
+0:1/0/terrains_peering_bit/top_side = 0
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 1
+1:1/0/probability = 0.5
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14.125, -14, 13.625, -13.5, 13.625, 13.5, -13.625, 14)
+1:1/0/terrains_peering_bit/right_side = 0
+1:1/0/terrains_peering_bit/bottom_side = 0
+1:1/0/terrains_peering_bit/left_side = 0
+1:1/0/terrains_peering_bit/top_side = 0
+
+[sub_resource type="TileSet" id="TileSet_4vrqo"]
+tile_size = Vector2i(27, 27)
+physics_layer_0/collision_layer = 1
+terrain_set_0/mode = 2
+terrain_set_0/terrain_0/name = "ground"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+terrain_set_0/terrain_1/name = "wall"
+terrain_set_0/terrain_1/color = Color(0.5, 0.4375, 0.25, 1)
+sources/0 = SubResource("TileSetAtlasSource_wuvh2")
+sources/1 = SubResource("TileSetAtlasSource_b00rr")
+pattern_0 = SubResource("TileMapPattern_mvwnt")
+pattern_1 = SubResource("TileMapPattern_5jbrr")
+pattern_2 = SubResource("TileMapPattern_i4mxe")
+
+[node name="world" type="Node2D"]
+position = Vector2(272, 296)
+script = ExtResource("1_rxjl0")
+
+[node name="world_map" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_xhjk5")
+
+[node name="world_collidder" type="StaticBody2D" parent="."]
+
+[node name="world_border_bottom" type="CollisionShape2D" parent="world_collidder"]
+shape = SubResource("WorldBoundaryShape2D_cdvng")
+
+[node name="world_border_right" type="CollisionShape2D" parent="world_collidder"]
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_cdvng")
+
+[node name="world_border_left" type="CollisionShape2D" parent="world_collidder"]
+rotation = -4.71239
+shape = SubResource("WorldBoundaryShape2D_cdvng")
+
+[node name="world_border_top" type="CollisionShape2D" parent="world_collidder"]
+rotation = -3.14159
+shape = SubResource("WorldBoundaryShape2D_cdvng")
+
+[node name="world_tileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_4vrqo")
+format = 2
+layer_0/tile_data = PackedInt32Array(-2, 0, 1, -1, 0, 1, 0, 65536, 1, 65536, 65536, 1, 65537, 0, 0, 131073, 65536, 0, 131072, 65536, 1, 131071, 0, 0, 65534, 0, 0, 65535, 65536, 0, 131070, 0, 1, 196607, 0, 0, 196606, 65536, 0, 262142, 1, 0, 262143, 65537, 1, 196608, 1, 1, 196609, 1, 0, 196610, 65537, 0, 262141, 65537, 1)
+script = ExtResource("4_yulj3")
