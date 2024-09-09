@@ -39,6 +39,10 @@ properties/1/path = NodePath("pseudo:text")
 properties/1/spawn = true
 properties/1/sync = true
 properties/1/watch = false
+properties/2/path = NodePath("Camera2D/chat:text")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
 
 [node name="player" type="RigidBody2D"]
 position = Vector2(2, -9)
@@ -51,6 +55,23 @@ sprite_frames = SubResource("SpriteFrames_jnetp")
 animation = &"stand_still"
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="chat" type="Label" parent="Camera2D"]
+visible = false
+offset_left = -571.0
+offset_top = -228.0
+offset_right = -383.0
+offset_bottom = -158.0
+text = "none
+none"
+
+[node name="chat_input" type="LineEdit" parent="Camera2D"]
+visible = false
+offset_left = -572.0
+offset_top = -139.0
+offset_right = -397.0
+offset_bottom = -108.0
+editable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)
@@ -81,3 +102,5 @@ text = "TOTO"
 horizontal_alignment = 1
 uppercase = true
 metadata/_edit_group_ = true
+
+[connection signal="text_submitted" from="Camera2D/chat_input" to="." method="_on_chat_input_text_submitted"]

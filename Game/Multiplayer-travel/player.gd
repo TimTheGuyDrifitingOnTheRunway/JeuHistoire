@@ -6,6 +6,7 @@ var screen_size # Size of the game window.
 var heading = 0  #used for texture orientation
 var targeting = false
 @export var activated = true
+var chat = ''
 func _ready():
 	screen_size = get_viewport_rect().size
 	
@@ -63,6 +64,10 @@ func _process(delta):
 		pass
 		
 		
+	###################################### gestion chat
+	$Camera2D/chat.text = chat
+	if Input.is_action_pressed("chat") and not $Camera2D/chat_input.editable:
+		$Camera2D/chat_input.editable=true
 	
 
 
@@ -74,8 +79,21 @@ func deactivate():
 
 func set_user():
 	$pseudo.text=comon_data.username#lit les données dpuis le singleton
-	
-
+	$Camera2D/chat.visible=true
+	$Camera2D/chat_input.visible=true
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
 	
+
+
+func _on_chat_input_text_submitted(new_text):
+	var text = $pseudo.text +" : "+ new_text
+	$Camera2D/chat_input.editable=false
+	add_text_to_chat.rpc_id(1, text)
+	
+	
+@rpc("any_peer", "reliable", "call_local")
+func add_text_to_chat(text): #fonction pour faire apliquer le chat
+	print(text)
+	chat = text
+	print(name,chat)
