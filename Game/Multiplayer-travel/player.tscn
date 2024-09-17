@@ -33,16 +33,10 @@ size = Vector2(30, 31)
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_53yyc"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
-properties/0/sync = true
-properties/0/watch = false
+properties/0/replication_mode = 1
 properties/1/path = NodePath("pseudo:text")
 properties/1/spawn = true
-properties/1/sync = true
-properties/1/watch = false
-properties/2/path = NodePath("Camera2D/chat:text")
-properties/2/spawn = true
-properties/2/sync = true
-properties/2/watch = false
+properties/1/replication_mode = 1
 
 [node name="player" type="RigidBody2D"]
 position = Vector2(2, -9)

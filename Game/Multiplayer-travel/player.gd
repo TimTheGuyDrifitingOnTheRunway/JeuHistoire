@@ -65,9 +65,11 @@ func _process(delta):
 		
 		
 	###################################### gestion chat
-	$Camera2D/chat.text = chat
+	$Camera2D/chat.text = comon_data.Chat
 	if Input.is_action_pressed("chat") and not $Camera2D/chat_input.editable:
 		$Camera2D/chat_input.editable=true
+		$Camera2D/chat_input.clear()
+		$Camera2D/chat_input.grab_focus()
 	
 
 
@@ -89,11 +91,10 @@ func _enter_tree():
 func _on_chat_input_text_submitted(new_text):
 	var text = $pseudo.text +" : "+ new_text
 	$Camera2D/chat_input.editable=false
-	add_text_to_chat.rpc_id(1, text)
+	add_text_to_chat.rpc(text)
 	
 	
-@rpc("any_peer", "reliable", "call_local")
+@rpc("any_peer", "reliable","call_local")
 func add_text_to_chat(text): #fonction pour faire apliquer le chat
-	print(text)
-	chat = text
-	print(name,chat)
+	comon_data.Chat = text#utilisation d'un singleton pour que tout le monde ait le me chat
+	
