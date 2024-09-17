@@ -15,6 +15,7 @@ func _on_host_pressed():
 		peer.create_server(135)
 		multiplayer.multiplayer_peer = peer
 		multiplayer.peer_connected.connect(_add_player)
+		multiplayer.peer_connected.disconnect(_remove_player)
 		_add_player()
 		start_game()
 	else:
@@ -27,10 +28,13 @@ func _add_player(id = 1):
 	call_deferred("add_child",player)
 	# gère la liste des joueurs
 	player_list.append(player)
-	comon_data.global_player_list = player_list
+	comon_data.global_player_list[id] = player
+	print(comon_data.global_player_list)
 	
 		
-	
+func _remove_player(id = 1):
+	var player = comon_data.global_player_list[id]
+	player.queue_free()
  
  
 func _on_join_pressed():
