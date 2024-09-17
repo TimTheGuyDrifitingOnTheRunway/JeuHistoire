@@ -43,7 +43,7 @@ func _process(delta):
 			velocity=orientation
 			velocity = velocity.normalized()
    
-		if global_position.distance_to($Target.global_position)<50:
+		if global_position.distance_to($Target.global_position)<50 or not Input.is_mouse_button_pressed(1):
 			targeting = false
 		
 
