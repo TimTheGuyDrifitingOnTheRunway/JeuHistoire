@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c5nng2rkd0kcb"]
+[gd_scene load_steps=9 format=3 uid="uid://c5nng2rkd0kcb"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_727t5"]
 [ext_resource type="Texture2D" uid="uid://s8ffmju0otk7" path="res://Assets/character.png" id="1_ixkol"]
@@ -26,6 +26,9 @@ animations = [{
 "name": &"walking",
 "speed": 5.0
 }]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mrhfx"]
+font_size = 14
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0iu88"]
 size = Vector2(30, 31)
@@ -58,6 +61,7 @@ offset_right = -383.0
 offset_bottom = -158.0
 text = "none
 none"
+label_settings = SubResource("LabelSettings_mrhfx")
 
 [node name="chat_input" type="LineEdit" parent="Camera2D"]
 visible = false
