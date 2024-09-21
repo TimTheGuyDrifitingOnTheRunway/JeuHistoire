@@ -15,7 +15,7 @@ func _on_host_pressed():
 		peer.create_server(135)
 		multiplayer.multiplayer_peer = peer
 		multiplayer.peer_connected.connect(_add_player)
-		multiplayer.peer_connected.disconnect(_remove_player)
+		multiplayer.peer_disconnected.connect(_remove_player)
 		_add_player()
 		start_game()
 	else:
@@ -33,10 +33,21 @@ func _add_player(id = 1):
 	
 		
 func _remove_player(id = 1):
-	var player = comon_data.global_player_list[id]
-	player.queue_free()
- 
- 
+	var player = comon_data.global_player_list[id] # on recupère le joueur correspondant a l'id
+	comon_data.global_player_list.erase(id)# on suprime l'entrée correspondant au joueur dans le tableau
+	for child in get_children():
+		if child== player:
+			var path = child.get_path() # on recupère son path
+			print("removing on all client : ", id, "with path : ", path)
+			del_player.rpc(path)# on l'envoi a tous les clients
+	
+	
+@rpc("authority", "call_local")
+func del_player(player_path):
+	var player = get_node(player_path)# on, récupère le node asocié au path
+	#print("deleting ", player, " at path : ", player_path)
+	player.queue_free()# on le suprime
+	
 func _on_join_pressed():
 	multiplayer.connection_failed.connect(_reset_connexion)#bind levenemt 
 	if $UI/VBoxContainer/username.text !='':

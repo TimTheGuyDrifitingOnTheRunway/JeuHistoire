@@ -65,7 +65,10 @@ func _process(delta):
 		
 		
 	###################################### gestion chat
-	$Camera2D/chat.text = comon_data.Chat
+	if len(comon_data.Chat.split("\n"))>2:
+		$Camera2D/chat.text = (comon_data.Chat.split("\n")[-2]+"\n"+comon_data.Chat.split("\n")[-1]+"\n")#re split pour afficher que les dernières 2 lignes
+	else:
+		$Camera2D/chat.text = comon_data.Chat
 	if Input.is_action_pressed("chat") and not $Camera2D/chat_input.editable:
 		$Camera2D/chat_input.editable=true
 		$Camera2D/chat_input.clear()
