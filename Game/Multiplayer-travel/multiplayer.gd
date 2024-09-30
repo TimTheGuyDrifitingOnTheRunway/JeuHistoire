@@ -72,7 +72,8 @@ func start_game():
 func _reset_connexion():
 	OS.alert('connexion failed')
 	for child in get_children():#suprimme les itérations des jouerus
-		child.queue_free()
+		pass
+		#child.queue_free()
 	if get_tree().has_network_peer():
 		get_tree().network_peer= null
 	$world.hide()
