@@ -7,6 +7,7 @@ var heading = 0  #used for texture orientation
 var targeting = false
 @export var activated = true
 var chat = ''
+
 func _ready():
 	screen_size = get_viewport_rect().size
 	
@@ -34,6 +35,7 @@ func _process(delta):
 		$RayCast2D.target_position = velocity.normalized()#raycast pour smooth les colisions
 		
 		#control par clic--------------------------------------
+		@warning_ignore("int_as_enum_without_cast")
 		if Input.is_mouse_button_pressed(1):
 			$Target.global_position=get_global_mouse_position()
 			targeting= true
@@ -43,6 +45,7 @@ func _process(delta):
 			velocity=orientation
 			velocity = velocity.normalized()
    
+		@warning_ignore("int_as_enum_without_cast")
 		if global_position.distance_to($Target.global_position)<50 or not Input.is_mouse_button_pressed(1):
 			targeting = false
 		
@@ -60,8 +63,11 @@ func _process(delta):
 		position += velocity * delta
 		$AnimatedSprite2D.rotation = heading
 	
-	if name=="1": #admin dans ce cas
-		pass
+	######################################################## gestion moderation
+	
+	if name=="1" and Input.is_action_pressed("menu admin") and not $Camera2D/ban_player.visible:
+		$Camera2D/ban_player.visible=true
+	
 		
 		
 	###################################### gestion chat
@@ -73,6 +79,8 @@ func _process(delta):
 		$Camera2D/chat_input.editable=true
 		$Camera2D/chat_input.clear()
 		$Camera2D/chat_input.grab_focus()
+		
+	
 	
 
 
@@ -101,3 +109,9 @@ func _on_chat_input_text_submitted(new_text):
 func add_text_to_chat(text): #fonction pour faire apliquer le chat
 	comon_data.Chat += '\n'+text#utilisation d'un singleton pour que tout le monde ait le me chat
 	
+	
+
+
+func _on_ban_player_text_submitted(pseudo) -> void:
+	comon_data.player_to_ban=pseudo
+	$Camera2D/ban_player.visible=false
