@@ -7,8 +7,8 @@ var username = str('none')
 signal user_send(name)
 var player_list = []
 var handshaked = false
-var ip = IP.get_local_addresses()
-
+var ips = IP.get_local_addresses()
+var auto_guess = false
 
 	
 	
@@ -21,7 +21,7 @@ func _on_host_pressed():
 		_add_player()
 		handshaked=true # fait que le serveur est handsahked par défaut
 		start_game()
-		print(ip)
+		print(ips)
 	else:
 		OS.alert('You need ton enter an username')
 		
@@ -56,6 +56,7 @@ func _on_join_pressed():
 	multiplayer.connection_failed.connect(_reset_connexion)#bind levenemt
 	multiplayer.server_disconnected.connect(_reset_connexion) 
 	if $UI/VBoxContainer/username.text !='':
+		_try_auto_detect()
 		if $UI/VBoxContainer/HBoxContainer/adress.text !='':
 			peer.create_client($UI/VBoxContainer/HBoxContainer/adress.text, 135)#connexion
 			multiplayer.multiplayer_peer = peer
@@ -64,7 +65,7 @@ func _on_join_pressed():
 			else:
 				OS.alert('Connexion failed \n invalid adress')
 		else:
-			OS.alert('You need to enter an adress')
+			OS.alert('You need to enter an adress.... auto_guess in progress')
 	else:
 		OS.alert('You need to enter an username')
 	
@@ -77,7 +78,8 @@ func start_game():
 		_reset_connexion()#reset la connection si pas de réponse du host
 	
 func _reset_connexion():
-	OS.alert('connexion failed')
+	if not auto_guess:
+		OS.alert('connexion failed')
 	for child in get_children():#suprimme les itérations des jouerus
 		pass
 		#child.queue_free()
@@ -92,3 +94,15 @@ func _reset_connexion():
 func set_handshaked():
 	handshaked=true
 	
+func _try_auto_detect():
+	print(ips) #essaye de determiner automatiquement l'ip cible
+	auto_guess=true
+	for ip in ips:
+		peer.create_client(ip, 135)#connexion
+		multiplayer.multiplayer_peer = peer
+		if peer.get_peer(1)!=null:
+			$connectionTimeout.start()
+		if handshaked:
+			break
+	auto_guess=false
+		
