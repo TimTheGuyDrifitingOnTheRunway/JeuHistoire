@@ -10,12 +10,13 @@ config_version=5
 
 [application]
 
-config/name="Proto Histoire"
-config/description="Assets by Tim .B
+config/name="Jeu EMC"
+config/description="by Tim .B
 "
+config/version="1.4"
 run/main_scene="res://multiplayer.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
-config/icon="res://Assets/Wikipedia-Flags-GB-United-Kingdom-Flag.512.png"
+config/icon="res://Assets/icon_assemblee.png"
 
 [autoload]
 

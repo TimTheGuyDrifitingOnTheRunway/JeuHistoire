@@ -6,7 +6,8 @@ var peer = ENetMultiplayerPeer.new()
 var username = str('none')
 signal user_send(name)
 var player_list = []
-
+var handshaked = false
+var ip = IP.get_local_addresses()
 
 
 	
@@ -18,12 +19,14 @@ func _on_host_pressed():
 		multiplayer.peer_connected.connect(_add_player)
 		multiplayer.peer_disconnected.connect(_remove_player)
 		_add_player()
+		handshaked=true # fait que le serveur est handsahked par défaut
 		start_game()
+		print(ip)
 	else:
 		OS.alert('You need ton enter an username')
 		
 func _add_player(id = 1):
-	
+	set_handshaked.rpc_id(id)#donne le handshake au joueur
 	var player = player_scene.instantiate()
 	player.name = str(id)
 	call_deferred("add_child",player)
@@ -50,13 +53,14 @@ func del_player(player_path):
 	player.queue_free()# on le suprime
 	
 func _on_join_pressed():
-	multiplayer.connection_failed.connect(_reset_connexion)#bind levenemt 
+	multiplayer.connection_failed.connect(_reset_connexion)#bind levenemt
+	multiplayer.server_disconnected.connect(_reset_connexion) 
 	if $UI/VBoxContainer/username.text !='':
 		if $UI/VBoxContainer/HBoxContainer/adress.text !='':
 			peer.create_client($UI/VBoxContainer/HBoxContainer/adress.text, 135)#connexion
 			multiplayer.multiplayer_peer = peer
 			if peer.get_peer(1)!=null:
-				start_game()
+				$connectionTimeout.start()#demare le chrono. si pas de handashake alors on fait rien
 			else:
 				OS.alert('Connexion failed \n invalid adress')
 		else:
@@ -65,18 +69,26 @@ func _on_join_pressed():
 		OS.alert('You need to enter an username')
 	
 func start_game():
-	comon_data.username=$UI/VBoxContainer/username.text #synchronise le pseudo
-	$UI.hide()
-	$world.show()
+	if handshaked :
+		comon_data.username=$UI/VBoxContainer/username.text #synchronise le pseudo
+		$UI.hide()
+		$world.show()
+	else :
+		_reset_connexion()#reset la connection si pas de réponse du host
 	
 func _reset_connexion():
 	OS.alert('connexion failed')
 	for child in get_children():#suprimme les itérations des jouerus
 		pass
 		#child.queue_free()
-	if get_tree().has_network_peer():
-		get_tree().network_peer= null
+	if peer.get_peer(1)!=null:
+		peer.close()
 	$world.hide()
 	$UI.show()
+	handshaked=false
 		
+		
+@rpc("authority", "call_remote")
+func set_handshaked():
+	handshaked=true
 	

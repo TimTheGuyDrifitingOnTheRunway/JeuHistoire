@@ -61,5 +61,9 @@ spawn_path = NodePath("..")
 [node name="world" parent="." instance=ExtResource("2_nnswa")]
 visible = false
 
+[node name="connectionTimeout" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="pressed" from="UI/VBoxContainer/HBoxContainer/host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="UI/VBoxContainer/HBoxContainer/join" to="." method="_on_join_pressed"]
+[connection signal="timeout" from="connectionTimeout" to="." method="start_game"]
